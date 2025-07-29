@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import RecipientSelector from './RecipientSelector.jsx'
 
-function InputSection() {
+function InputSection({ inputValue, onInputChange }) {
   const [mode, setMode] = useState('text')
 
 
@@ -26,6 +26,8 @@ function InputSection() {
         <textarea
           className="w-full h-32 p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500 resize-none"
           placeholder="Type your text here..."
+          value={inputValue}
+          onChange={(e) => onInputChange(e.target.value)}
         />
       ) : (
         <div className="flex flex-col items-center gap-4">
