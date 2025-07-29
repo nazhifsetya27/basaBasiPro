@@ -1,7 +1,4 @@
-import { useState } from 'react'
-
-function PolitenessSlider() {
-  const [level, setLevel] = useState(3)
+function PolitenessSlider({ level, onLevelChange }) {
 
   const getLabel = (value) => {
     switch (Number(value)) {
@@ -32,7 +29,7 @@ function PolitenessSlider() {
         max="5"
         step="1"
         value={level}
-        onChange={(e) => setLevel(Number(e.target.value))}
+        onChange={(e) => onLevelChange(Number(e.target.value))}
         className="w-full accent-teal-500"
       />
       <div className="text-sm text-gray-600 text-center">{getLabel(level)}</div>
