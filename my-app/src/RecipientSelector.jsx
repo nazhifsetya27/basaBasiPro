@@ -1,11 +1,11 @@
-import { useState } from 'react'
-
-function RecipientSelector() {
-  const [recipient, setRecipient] = useState('')
-  const [customRecipient, setCustomRecipient] = useState('')
-
+function RecipientSelector({
+  recipient,
+  customRecipient,
+  onRecipientChange,
+  onCustomRecipientChange,
+}) {
   const handleChange = (e) => {
-    setRecipient(e.target.value)
+    onRecipientChange(e.target.value)
   }
 
   return (
@@ -31,7 +31,7 @@ function RecipientSelector() {
           className="border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-teal-500"
           placeholder="Enter custom recipient"
           value={customRecipient}
-          onChange={(e) => setCustomRecipient(e.target.value)}
+          onChange={(e) => onCustomRecipientChange(e.target.value)}
         />
       )}
     </div>

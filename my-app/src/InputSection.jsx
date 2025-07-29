@@ -1,13 +1,26 @@
 import { useState } from 'react'
 import RecipientSelector from './RecipientSelector.jsx'
 
-function InputSection({ inputValue, onInputChange }) {
+function InputSection({
+  inputValue,
+  onInputChange,
+  recipient,
+  customRecipient,
+  onRecipientChange,
+  onCustomRecipientChange,
+  onSubmit,
+}) {
   const [mode, setMode] = useState('text')
 
 
   return (
     <div className="bg-white rounded-xl p-6 space-y-6 shadow-md text-gray-700">
-      <RecipientSelector />
+      <RecipientSelector
+        recipient={recipient}
+        customRecipient={customRecipient}
+        onRecipientChange={onRecipientChange}
+        onCustomRecipientChange={onCustomRecipientChange}
+      />
       <div className="flex items-center justify-center gap-0 rounded-md overflow-hidden border divide-x w-max mx-auto">
         <button
           className={`px-4 py-2 text-sm font-medium flex-1 ${mode === 'text' ? 'bg-teal-500 text-white' : 'bg-gray-100 text-gray-700'}`}
@@ -52,6 +65,12 @@ function InputSection({ inputValue, onInputChange }) {
           </button>
         </div>
       )}
+      <button
+        onClick={onSubmit}
+        className="bg-teal-600 text-white rounded-md px-4 py-2 hover:bg-teal-700"
+      >
+        Submit
+      </button>
     </div>
   )
 }

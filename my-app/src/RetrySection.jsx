@@ -1,12 +1,6 @@
-import { useState } from 'react'
-
-function RetrySection({ previousInput }) {
-  const [feedback, setFeedback] = useState('')
-
+function RetrySection({ feedback, onFeedbackChange, onRetry }) {
   const handleRetry = () => {
-    console.log('Retrying with input:', previousInput, 'Feedback:', feedback)
-    // API call will be integrated here
-    setFeedback('')
+    onRetry()
   }
 
   return (
@@ -19,7 +13,7 @@ function RetrySection({ previousInput }) {
         className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-600 resize-none"
         placeholder="e.g., Make it shorter or Too formal"
         value={feedback}
-        onChange={(e) => setFeedback(e.target.value)}
+        onChange={(e) => onFeedbackChange(e.target.value)}
       />
       <button
         onClick={handleRetry}
