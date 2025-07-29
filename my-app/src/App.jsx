@@ -4,6 +4,7 @@ import InputSection from './InputSection.jsx'
 import PolitenessSlider from './PolitenessSlider.jsx'
 import RetrySection from './RetrySection.jsx'
 import OutputSection from './OutputSection.jsx'
+import callOpenAI from './utils/callOpenAI.js'
 
 function App() {
   const [inputText, setInputText] = useState('')
@@ -19,34 +20,15 @@ function App() {
   }
 
   const handleSubmit = async () => {
-    const promptParts = [
-      'Please rewrite this message to be more polite.',
-      `Audience: ${getAudience()}.`,
-      `Politeness level: ${politeness}.`,
-    ]
-    if (feedback) {
-      promptParts.push(`Feedback: ${feedback}.`)
-    }
-    promptParts.push(`Original message: ${inputText}`)
-
-    const prompt = promptParts.join(' ')
-
     setLoading(true)
     try {
-      const res = await fetch('https://api.openai.com/v1/chat/completions', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${import.meta.env.VITE_OPENAI_API_KEY}`,
-        },
-        body: JSON.stringify({
-          model: 'gpt-3.5-turbo',
-          messages: [{ role: 'user', content: prompt }],
-        }),
-      })
-
-      const data = await res.json()
-      setOutput(data.choices?.[0]?.message?.content?.trim() || '')
+      const result = await callOpenAI(
+        inputText,
+        getAudience(),
+        politeness,
+        feedback,
+      )
+      setOutput(result)
     } catch (err) {
       console.error(err)
       setOutput('Failed to fetch response.')
