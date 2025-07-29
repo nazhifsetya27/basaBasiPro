@@ -5,17 +5,18 @@ export default async function callOpenAI(inputText, recipient, politenessLevel, 
     throw new Error('API key is missing. Please check your .env setup.')
   }
 
-  const promptParts = [
-    'Please rewrite this message to be more polite and respectful.',
-    `Audience: ${recipient}.`,
-    `Politeness level: ${politenessLevel}.`,
+  const promptLines = [
+    'You are a helpful assistant that rewrites rude or harsh messages to sound polite and professional.',
+    `Recipient: ${recipient}`,
+    `Politeness level: ${politenessLevel}`,
   ]
   if (feedback) {
-    promptParts.push(`Feedback: ${feedback}.`)
+    promptLines.push(`Feedback: ${feedback}`)
   }
-  promptParts.push(`Message: ${inputText}`)
+  promptLines.push(`Original message: ${inputText}`)
+  promptLines.push('Polite version:')
 
-  const prompt = promptParts.join(' ')
+  const formattedPrompt = promptLines.join('\n')
 
   const res = await fetch('https://api.openai.com/v1/chat/completions', {
     method: 'POST',
@@ -25,7 +26,7 @@ export default async function callOpenAI(inputText, recipient, politenessLevel, 
     },
     body: JSON.stringify({
       model: 'gpt-3.5-turbo',
-      messages: [{ role: 'user', content: prompt }],
+      messages: [{ role: 'user', content: formattedPrompt }],
     }),
   })
 
