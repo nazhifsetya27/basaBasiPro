@@ -1,4 +1,10 @@
 export default async function callOpenAI(inputText, recipient, politenessLevel, feedback = '') {
+  const apiKey = import.meta.env.VITE_OPENAI_API_KEY
+  if (!apiKey) {
+    console.warn('OpenAI API key is missing.')
+    throw new Error('API key is missing. Please check your .env setup.')
+  }
+
   const promptParts = [
     'Please rewrite this message to be more polite and respectful.',
     `Audience: ${recipient}.`,
@@ -15,7 +21,7 @@ export default async function callOpenAI(inputText, recipient, politenessLevel, 
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
-      Authorization: `Bearer ${import.meta.env.VITE_OPENAI_API_KEY}`,
+      Authorization: `Bearer ${apiKey}`,
     },
     body: JSON.stringify({
       model: 'gpt-3.5-turbo',

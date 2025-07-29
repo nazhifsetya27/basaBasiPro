@@ -14,6 +14,7 @@ function App() {
   const [feedback, setFeedback] = useState('')
   const [output, setOutput] = useState('')
   const [loading, setLoading] = useState(false)
+  const [error, setError] = useState('')
 
   const getAudience = () => {
     return recipient === 'Custom' ? customRecipient || 'Custom' : recipient || 'General'
@@ -21,6 +22,7 @@ function App() {
 
   const handleSubmit = async () => {
     setLoading(true)
+    setError('')
     try {
       const result = await callOpenAI(
         inputText,
@@ -31,7 +33,8 @@ function App() {
       setOutput(result)
     } catch (err) {
       console.error(err)
-      setOutput('Failed to fetch response.')
+      setError(err.message || 'Failed to fetch response.')
+      setOutput('')
     } finally {
       setLoading(false)
     }
@@ -57,7 +60,7 @@ function App() {
       {loading ? (
         <div className="text-center text-gray-600">Filtering...</div>
       ) : (
-        <OutputSection output={output} />
+        <OutputSection output={output} error={error} />
       )}
     </div>
   )
