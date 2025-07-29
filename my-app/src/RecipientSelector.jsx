@@ -9,10 +9,10 @@ function RecipientSelector() {
   }
 
   return (
-    <div className="flex flex-col gap-2">
-      <label className="font-medium text-gray-700">Recipient</label>
+    <div className="flex flex-col space-y-2">
+      <label className="font-semibold text-gray-700">Recipient</label>
       <select
-        className="border rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-teal-500"
+        className="border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-teal-500"
         value={recipient}
         onChange={handleChange}
       >
@@ -28,7 +28,7 @@ function RecipientSelector() {
       {recipient === 'Custom' && (
         <input
           type="text"
-          className="border rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-teal-500"
+          className="border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-teal-500"
           placeholder="Enter custom recipient"
           value={customRecipient}
           onChange={(e) => setCustomRecipient(e.target.value)}

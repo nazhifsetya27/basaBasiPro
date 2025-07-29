@@ -4,30 +4,27 @@ import RecipientSelector from './RecipientSelector.jsx'
 function InputSection() {
   const [mode, setMode] = useState('text')
 
-  const toggleMode = () => {
-    setMode((prev) => (prev === 'text' ? 'voice' : 'text'))
-  }
 
   return (
-    <div className="bg-gray-100 rounded-xl px-4 py-3 space-y-4 shadow-md">
+    <div className="bg-white rounded-xl p-6 space-y-6 shadow-md text-gray-700">
       <RecipientSelector />
-      <div className="flex items-center justify-center gap-4">
-        <span className={`font-medium ${mode === 'text' ? 'text-teal-600' : 'text-gray-500'}`}>Text</span>
-        <label className="relative inline-flex items-center cursor-pointer">
-          <input
-            type="checkbox"
-            className="sr-only peer"
-            checked={mode === 'voice'}
-            onChange={toggleMode}
-          />
-          <div className="w-11 h-6 bg-gray-200 rounded-full peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-teal-500 peer-checked:bg-teal-500"></div>
-          <div className="absolute top-0 left-0 w-6 h-6 bg-white border border-gray-300 rounded-full transition-transform peer-checked:translate-x-full"></div>
-        </label>
-        <span className={`font-medium ${mode === 'voice' ? 'text-teal-600' : 'text-gray-500'}`}>Voice</span>
+      <div className="flex items-center justify-center gap-0 rounded-md overflow-hidden border divide-x w-max mx-auto">
+        <button
+          className={`px-4 py-2 text-sm font-medium flex-1 ${mode === 'text' ? 'bg-teal-500 text-white' : 'bg-gray-100 text-gray-700'}`}
+          onClick={() => setMode('text')}
+        >
+          Text
+        </button>
+        <button
+          className={`px-4 py-2 text-sm font-medium flex-1 ${mode === 'voice' ? 'bg-teal-500 text-white' : 'bg-gray-100 text-gray-700'}`}
+          onClick={() => setMode('voice')}
+        >
+          Voice
+        </button>
       </div>
       {mode === 'text' ? (
         <textarea
-          className="w-full h-32 p-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500 resize-none"
+          className="w-full h-32 p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500 resize-none"
           placeholder="Type your text here..."
         />
       ) : (
